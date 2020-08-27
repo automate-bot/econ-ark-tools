@@ -12,6 +12,29 @@ sudo apt -y update && sudo apt -y upgrade
 
 sudo ls  > /dev/null # make sure we have root permission
 
+# These have been copied from the preseed file because apparently ubiquity ignores them
+# But realized that they don't work here; ubiquity/success_command seems to be a substitute for late_command
+# so moved them to ubiquity ubiquity/success_command string
+
+# online=https://raw.githubusercontent.com/econ-ark/econ-ark-tools/master/Virtual/Machine/ISO-maker-Desktop
+# finishFile="finish.sh"
+# startFile="start.sh"
+# seed_file="econ-ark.seed"
+# ks_file=ks.cfg
+# rclocal_file=rc.local
+
+
+# curl -L -o /var/local/start.sh $online/$startFile
+# curl -L -o /var/local/finish.sh $online/$finishFile
+# curl -L -o /etc/rc.local $online/$rclocal_file
+# chmod +x /var/local/start.sh
+# chmod +x /var/local/finish.sh
+# chmod +x /etc/rc.local
+# mkdir -p /etc/lightdm/lightdm.conf.d
+# curl -L -o /etc/lightdm/lightdm.conf.d/autologin-econ-ark.conf $online/root/etc/lightdm/lightdm.conf.d/autologin-econ-ark.conf
+# chmod 755 /etc/lightdm/lightdm.conf.d/autologin-econ-ark.conf
+
+
 # Put in /tmp directory
 [[ -e /tmp/Anaconda ]] && sudo rm -Rf /tmp/Anaconda # delete any prior install
 
@@ -107,7 +130,7 @@ echo 'This is your local, personal copy of REMARK, which you can modify.  '    >
 
 cd /usr/local/share/data/GitHub/econ-ark/REMARK
 git submodule update --init --recursive --remote
-git pull --recursive-submodules
+git pull --recurse-submodules
 
 sudo -u econ-ark pip install jupyter_contrib_nbextensions
 sudo -u econ-ark jupyter contrib nbextension install --user
